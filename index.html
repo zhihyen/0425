@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sketch</title>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <style>
+      .cards {
+        display: flex; /* Use flexbox for horizontal alignment */
+        flex-wrap: nowrap; /* Prevent wrapping to the next row */
+        justify-content: space-around; /* Add equal space around cards */
+        gap: 20px; /* Space between cards */
+        margin: 0 auto;
+        overflow-x: auto; /* Allow horizontal scrolling if needed */
+      }
+
+      .card {
+        flex: 0 0 200px; /* Set a fixed width for each card */
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        background-color: transparent; /* Keep the background transparent */
+        font-size: 14px;
+        color: rgb(255, 255, 255); /* Revert text color to black */
+      }
+
+      /* Overlay styles */
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+        display: none; /* Hidden by default */
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+
+      .overlay iframe {
+        width: 80%;
+        height: 80%;
+        border: none;
+      }
+
+      .overlay button {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background-color: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        z-index: 1001;
+      }
+    </style>
+
+    <script src="libraries/p5.min.js"></script>
+    <script src="libraries/p5.sound.min.js"></script>
+  </head>
+
+  <body>
+    <div style="position: relative; display: flex; align-items: center;">
+      <button id="scroll-left" style="position: absolute; left: -40px;">←</button>
+      <div class="cards">
+        <article class="card">
+          <div>
+            <h2>首頁</h2>
+            <p>!</p>
+            <button onclick="showIframe('https://www.et.tku.edu.tw/')">顯示內容</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <div>
+            <h2>自我介紹</h2>
+            <p>我是zenny張祉姸，就讀淡江大學教育科技系，這是我的期中作業!</p>
+            <button onclick="showIframe('https://www.instagram.com/enyxz._?igsh=bjE5c3R1amp2Y2ww')">顯示內容</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <div>
+            <h2>作品集</h2>
+            <p>以下是我的作品.</p>
+            <ul>
+              <li><button onclick="showIframe('https://zhihyen.github.io/0307/')">第一週</button></li>
+              <li><button onclick="showIframe('https://zhihyen.github.io/0314/')">第二週</button></li>
+              <li><button onclick="showIframe('https://zhihyen.github.io/0321/')">第三週</button></li>
+              <li><button onclick="showIframe('https://zhihyen.github.io/04111/')">第四週</button></li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="card">
+          <div>
+            <h2>測驗卷</h2>
+            <p>淡江大學測驗卷</p>
+            <button onclick="showIframe('https://zhihyen.github.io/0322/')">顯示內容</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <div>
+            <h2>教學影片</h2>
+            <p>上課!</p>
+            <button onclick="showIframe('https://youtu.be/K6mDMS7EAL0')">顯示內容</button>
+          </div>
+        </article>
+      </div>
+      <button id="scroll-right" style="position: absolute; right: -40px;">→</button>
+    </div>
+
+    <!-- Overlay for iframe -->
+    <div class="overlay" id="iframe-overlay">
+      <button onclick="closeIframe()">關閉</button>
+      <iframe id="iframe-content"></iframe>
+    </div>
+
+    <script>
+      function showIframe(url) {
+        const overlay = document.getElementById('iframe-overlay');
+        const iframe = document.getElementById('iframe-content');
+        iframe.src = url;
+        overlay.style.display = 'flex'; // Show the overlay
+      }
+
+      function closeIframe() {
+        const overlay = document.getElementById('iframe-overlay');
+        const iframe = document.getElementById('iframe-content');
+        iframe.src = ''; // Clear the iframe content
+        overlay.style.display = 'none'; // Hide the overlay
+      }
+    </script>
+    <script src="sketch.js"></script>
+  </body>
+</html>
